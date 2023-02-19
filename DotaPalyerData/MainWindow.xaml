@@ -40,9 +40,11 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Player Name" FontWeight="Bold" Margin="0,25,0,0"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Name="PlayerName" Margin="0,25,0,0" />
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Statistiques générales" Margin="5"/>
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Graphiques" Margin="5"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Name="PlayerName" Margin="0,30,0,0" />
+                <Label Grid.Row="1" Grid.Column="0" Content="MMR Estimé" FontWeight="Bold" Margin="0"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Name="EstimatedMmr" Margin="0,5,0,0" />
+                <Label Grid.Row="2" Grid.Column="0" Content="Rank" FontWeight="Bold" Margin="0"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Name="Rank" Margin="0,5,0,0" />
             </Grid>
             
         </StackPanel>

@@ -37,7 +37,11 @@ namespace DotaPalyerData
             if (player != null)
             {
                 PlayerName.Text = player.Profile.Name;
+                EstimatedMmr.Text = player.MMREstimate.Estimate.ToString();
+                Rank.Text = player.Rank;
+                Rank.InvalidateVisual();
                 PlayerName.InvalidateVisual();
+                EstimatedMmr.InvalidateVisual();
             }
             
             if (topHeroes != null)
