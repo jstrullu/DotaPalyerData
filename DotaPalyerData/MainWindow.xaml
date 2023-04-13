@@ -14,7 +14,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="SteamID : " />
         <TextBox Grid.Row="0" Grid.Column="1" Name="steamIDTextBox" Margin="5" />
@@ -38,6 +39,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="150"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Player Name" FontWeight="Bold" Margin="0,25,0,0"/>
                 <TextBlock Grid.Row="0" Grid.Column="1" Name="PlayerName" Margin="0,30,0,0" />
@@ -46,7 +48,17 @@
                 <Label Grid.Row="2" Grid.Column="0" Content="Rank" FontWeight="Bold" Margin="0"/>
                 <TextBlock Grid.Row="2" Grid.Column="1" Name="Rank" Margin="0,5,0,0" />
             </Grid>
-            
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="3">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Image Name="MyImageControl" Width="100" Height="100" Grid.Row="0" Grid.Column="0"/>
+            </Grid>
         </StackPanel>
     </Grid>
 </Window>

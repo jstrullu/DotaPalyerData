@@ -39,9 +39,11 @@ namespace DotaPalyerData
                 PlayerName.Text = player.Profile.Name;
                 EstimatedMmr.Text = player.MMREstimate.Estimate.ToString();
                 Rank.Text = player.Rank;
+                MyImageControl.Source = new BitmapImage(new Uri(player.Profile.Avatar));
                 Rank.InvalidateVisual();
                 PlayerName.InvalidateVisual();
                 EstimatedMmr.InvalidateVisual();
+                MyImageControl.InvalidateVisual();
             }
             
             if (topHeroes != null)
