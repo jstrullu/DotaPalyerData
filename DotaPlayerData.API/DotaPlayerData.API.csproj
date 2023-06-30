@@ -19,7 +19,6 @@
 
     <ItemGroup>
       <PackageReference Include="Flurl.Http" Version="3.2.4" />
-      <PackageReference Include="RestSharp" Version="110.2.0" />
     </ItemGroup>
 
 </Project>

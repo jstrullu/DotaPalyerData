@@ -1,35 +1,55 @@
+using Flurl.Http.Testing;
+using System.Net;
 using DotaPlayerData.API;
-using Moq;
-using RestSharp;
+using FluentAssertions;
+using Flurl.Http;
 
-namespace DotaPlayerData.Tests;
-
-public class Tests
+[TestFixture]
+public class OpenDotaApiClientTests
 {
+    private HttpTest _httpTest;
+    private OpenDotaApiClient _openDotaApiClient;
+
     [SetUp]
-    public void Setup()
+    public void SetUp()
     {
+        _httpTest = new HttpTest();
+        _openDotaApiClient = new OpenDotaApiClient();
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        _httpTest.Dispose();
     }
 
     [Test]
-    public async Task Test1()
+    public async Task GetAllDotaHeroes_ShouldReturnHeroes()
     {
-        var restClientMock = new Mock<RestClient>();
-        var responseMock = new Mock<RestResponse>();
-        responseMock.Setup(response => response.IsSuccessful).Returns(true);
-        responseMock.Setup(response => response.Content).Returns("Mocked heroes data");
-
-        restClientMock
-            .Setup(restClient => restClient.ExecuteAsync(It.IsAny<RestRequest>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(responseMock.Object);
-
-        OpenDotaApiClient openDotaApiClient = new (restClientMock.Object);
+        // Arrange
+        string expectedContent = "Mocked heroes data";
+        _httpTest.RespondWith(expectedContent, (int)HttpStatusCode.OK);
 
         // Act
-        string result = await openDotaApiClient.GetAllDotaHeroes();
+        string result = await _openDotaApiClient.GetAllDotaHeroes();
 
         // Assert
-        Assert.AreEqual("Mocked heroes data", result);
-        // Ajoutez d'autres assertions selon vos attentes.
+        result.Should().Be(expectedContent);
+        _httpTest.ShouldHaveCalled("https://api.opendota.com/api/heroes")
+            .WithVerb(HttpMethod.Get)
+            .Times(1);
+    }
+
+    [Test]
+    public void GetAllDotaHeroes_WhenRequestFails_ShouldThrowException()
+    {
+        // Arrange
+        _httpTest.RespondWith("Error", (int)HttpStatusCode.InternalServerError);
+
+        // Act & Assert
+        Assert.ThrowsAsync<FlurlHttpException>(async () =>
+        {
+            await _openDotaApiClient.GetAllDotaHeroes();
+        });
     }
 }

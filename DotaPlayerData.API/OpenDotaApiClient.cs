@@ -1,31 +1,66 @@
-﻿using RestSharp;
+﻿
+using Flurl;
+using Flurl.Http;
 
 namespace DotaPlayerData.API;
 
 // All the code in this file is included in all platforms.
 public class OpenDotaApiClient : IOpenDotaApiClient
 {
-    private readonly IRestClient _restClient;
+    private readonly string _baseUri;
 
-    public OpenDotaApiClient(IRestClient restClient)
+    public OpenDotaApiClient()
     {
-        _restClient = restClient;
+        _baseUri = "https://api.opendota.com/api/";
     }
     
     public async Task<string> GetAllDotaHeroes()
     {
-        var request = new RestRequest("heroes", Method.Get);
-
-        var response = await _restClient.ExecuteAsync(request);
-
-        if (!response.IsSuccessful)
+        try
         {
-            throw new Exception($"Error calling OpenDota API: {response.ErrorMessage}");
+
+
+            string heroesEndPoint = _baseUri.AppendPathSegment("heroes");
+
+            var response = await heroesEndPoint.GetAsync();
+
+            return await response.GetStringAsync();
         }
+        catch (FlurlHttpException ex)
+        {
+            throw;
+        }
+    }
 
-        if (response.Content == null)
-            throw new Exception(response.ErrorException?.Message);
+    public async Task<string> GetPlayerMatches(long steamId)
+    {
+        try
+        {
+            string matchEndpoint = _baseUri.AppendPathSegment($"players/{steamId}/matches?date=90");
 
-        return response.Content;
+            var response = await matchEndpoint.GetAsync();
+
+            return await response.GetStringAsync();
+        }
+        catch (FlurlHttpException e)
+        {
+            throw;
+        }
+    }
+
+    public async Task<string> GetPlayerInfos(long steamId)
+    {
+        try
+        {
+            string playerEndpoint = _baseUri.AppendPathSegment($"players/{steamId}");
+
+            var response = await playerEndpoint.GetAsync();
+        
+            return await response.GetStringAsync();
+        }
+        catch (FlurlHttpException e)
+        {
+            throw;
+        }
     }
 }
