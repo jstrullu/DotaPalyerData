@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
-using DotaPlayerData.UI.Data;
+﻿using DotaPlayerData.API;
+using DotaPlayerData.Core;
+using Microsoft.Extensions.Logging;
 
 namespace DotaPlayerData.UI;
 
@@ -18,8 +19,8 @@ public static class MauiProgram
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
 #endif
-
-        builder.Services.AddSingleton<WeatherForecastService>();
+        builder.Services.AddScoped<IOpenDotaApiClient, OpenDotaApiClient>();
+        builder.Services.AddScoped<IHeroService, HeroService>();
 
         return builder.Build();
     }
