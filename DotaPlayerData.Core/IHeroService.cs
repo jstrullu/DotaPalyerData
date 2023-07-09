@@ -3,6 +3,6 @@
 public interface IHeroService
 {
     Task<List<Hero>> GetAllDotaHeroes();
-    Task<List<PlayerHero>> GetTopHeroesForPlayer(long steamId);
+    Task<IQueryable<PlayerHero>> GetTopHeroesForPlayer(long steamId);
     Task<List<Match>> GetPlayerMatches(long steamId);
 }

@@ -36,7 +36,7 @@ public class OpenDotaApiClient : IOpenDotaApiClient
     {
         try
         {
-            string matchEndpoint = _baseUri.AppendPathSegment($"players/{steamId}/matches?date=90");
+            string matchEndpoint = _baseUri.AppendPathSegment($"players/{steamId}/matches");
 
             var response = await matchEndpoint.GetAsync();
 

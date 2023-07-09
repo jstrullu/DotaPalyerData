@@ -12,7 +12,7 @@ public class HeroService : IHeroService
         _openDotaApiClient = openDotaApiClient;
     }
 
-    public async Task<List<PlayerHero>> GetTopHeroesForPlayer(long steamId)
+    public async Task<IQueryable<PlayerHero>> GetTopHeroesForPlayer(long steamId)
     {
         var dotaHeroes = await GetAllDotaHeroes();
 
@@ -38,7 +38,7 @@ public class HeroService : IHeroService
             
         }
 
-        return playerHeroes.OrderByDescending(h => h.GamesPlayed).ThenByDescending(h => h.WinRate).Take(10).ToList();
+        return playerHeroes.AsQueryable();
 
     }
 

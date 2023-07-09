@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotaPlayerData.UI", "DotaPlayerData.UI\DotaPlayerData.UI.csproj", "{89790568-593D-43A9-AF95-37B06C0A6AB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotaPlayerData.UI", "DotaPlayerData.UI\DotaPlayerData.UI.csproj", "{89790568-593D-43A9-AF95-37B06C0A6AB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotaPlayerData.Core", "DotaPlayerData.Core\DotaPlayerData.Core.csproj", "{9FC20FF2-FA16-4EF3-A9B5-CE6F109AEB24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotaPlayerData.Core", "DotaPlayerData.Core\DotaPlayerData.Core.csproj", "{9FC20FF2-FA16-4EF3-A9B5-CE6F109AEB24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotaPlayerData.API", "DotaPlayerData.API\DotaPlayerData.API.csproj", "{3029CEAE-FE65-474A-9E38-5650EFE8BCE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotaPlayerData.API", "DotaPlayerData.API\DotaPlayerData.API.csproj", "{3029CEAE-FE65-474A-9E38-5650EFE8BCE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotaPlayerData.Tests", "DotaPlayerData.Tests\DotaPlayerData.Tests.csproj", "{618533DE-F341-482F-A17C-24D7A758F249}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotaPlayerData.Tests", "DotaPlayerData.Tests\DotaPlayerData.Tests.csproj", "{618533DE-F341-482F-A17C-24D7A758F249}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +19,7 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{89790568-593D-43A9-AF95-37B06C0A6AB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{89790568-593D-43A9-AF95-37B06C0A6AB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89790568-593D-43A9-AF95-37B06C0A6AB8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{89790568-593D-43A9-AF95-37B06C0A6AB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89790568-593D-43A9-AF95-37B06C0A6AB8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9FC20FF2-FA16-4EF3-A9B5-CE6F109AEB24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

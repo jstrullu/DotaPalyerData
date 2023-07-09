@@ -10,7 +10,7 @@ public class SearchController
         _heroService = heroService;
     }
 
-    public async Task<List<PlayerHero>> SearchTopPlayerHeroes(long steamId)
+    public async Task<IQueryable<PlayerHero>> SearchTopPlayerHeroes(long steamId)
     {
         return await _heroService.GetTopHeroesForPlayer(steamId);
     }
