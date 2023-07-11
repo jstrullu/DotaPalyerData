@@ -1,30 +1,24 @@
 ﻿@page "/"
 @using DotaPlayerData.UI.Data
 @using DotaPlayerData.Core
-@using System.Linq.Dynamic.Core
 @inject SearchController _SearchController
 <div>
     <div>
-        <RadzenTextBox Name="SteamId" @bind-value="@_steamId" class="rz-border-radius-4" />
-        <RadzenButton Click="OnSearchClick" class="rz-info" Text="Search" />
+        <MudTextField @bind-Value="_steamId" />
+        <MudButton OnClick="OnSearchClick">Search</MudButton>
     </div>
 @if (_playerHeroes != null)
 {
-    <div class="my-5">
-        <RadzenGrid TItem="PlayerHero" Data="@data" IsLoading=@_isLoading PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
-                    Count="@_count" AllowPaging="true" PageSize="10" AllowSorting="true" LoadData="@LoadData">
-            <Columns>
-                <RadzenGridColumn TItem="PlayerHero" Property="Name" Title="Hero" Width="80px" />
-                <RadzenGridColumn TItem="PlayerHero" Property="GamesPlayed" Title="Games Played" Width="80px" />
-                <RadzenGridColumn TItem="PlayerHero" Property="WinCount" Title="Wins" Width="80px" />
-                <RadzenGridColumn TItem="PlayerHero" Property="WinRate" Title="Win Rate" Width="80px">
-                    <Template Context="data">
-                        <RadzenLabel Text="@data.WinRate.ToString("P")" />
-                    </Template>
-                </RadzenGridColumn>
-            </Columns>
-        </RadzenGrid>
-    </div>
+    <MudDataGrid T="PlayerHero" Items="_playerHeroes" SortMode="@SortMode.Single" Height="500px" FixedHeader="true" FixedFooter="true">
+        <Columns>
+            <PropertyColumn Property="p => p.Name" Title="Hero Name"/>
+            <PropertyColumn Property="p => p.GamesPlayed" Title="Games Played"/>
+            <PropertyColumn Property="p => p.WinRate" Title="Win Rate" Format="P2"/>
+        </Columns>
+        <PagerContent>
+                <MudDataGridPager T="PlayerHero" />
+            </PagerContent>
+    </MudDataGrid>
 }
 </div>
 
@@ -33,53 +27,12 @@
     private string _steamId;
     private bool _isLoading;
     private int _count;
-    private IQueryable<PlayerHero> _playerHeroes;
+    private GridConfiguration _conf;
+    private IEnumerable<PlayerHero> _playerHeroes;
     private List<PlayerHero> data;
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        _count = 0;
-    }
 
     private async Task OnSearchClick()
     {
         _playerHeroes = await _SearchController.SearchTopPlayerHeroes(long.Parse(_steamId));
-        await LoadData(new LoadDataArgs
-        {
-            Skip = 0,
-            Top = 10
-        });
-    }
-    
-    async Task LoadData(LoadDataArgs args)
-    {
-        try
-        {
-            _isLoading = true;
-            var query = _playerHeroes.AsQueryable();
-
-            await Task.Yield();
-
-            if (!string.IsNullOrEmpty(args.Filter))
-            {
-                query = query.Where(args.Filter);
-            }
-
-            if (!string.IsNullOrEmpty(args.OrderBy))
-            {
-                query = query.OrderBy(args.OrderBy);
-            }
-
-            _count = query.Count();
-
-            data = query.Skip(args.Skip.Value).Take(args.Top.Value).ToList();
-
-            _isLoading = false;
-        }
-        catch (Exception e)
-        {
-            Console.Write(e.Message);
-        }
     }
 }
