@@ -63,4 +63,19 @@ public class OpenDotaApiClient : IOpenDotaApiClient
             throw;
         }
     }
+
+    public async Task<string> SearchPlayer(string name)
+    {
+        try
+        {
+            string searchEndpoint = _baseUri.AppendPathSegment("search").SetQueryParam("q", name);
+            var response = await searchEndpoint.GetAsync();
+
+            return await response.GetStringAsync();
+        }
+        catch (FlurlHttpException e)
+        {
+            throw;
+        }
+    }
 }

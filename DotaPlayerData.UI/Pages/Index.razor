@@ -1,38 +1,35 @@
 ﻿@page "/"
 @using DotaPlayerData.UI.Data
 @using DotaPlayerData.Core
-@inject SearchController _SearchController
+@inject SearchController SearchController
 <div>
     <div>
         <MudTextField @bind-Value="_steamId" />
         <MudButton OnClick="OnSearchClick">Search</MudButton>
     </div>
-@if (_playerHeroes != null)
-{
-    <MudDataGrid T="PlayerHero" Items="_playerHeroes" SortMode="@SortMode.Single" FixedHeader="true" FixedFooter="true">
-        <Columns>
-            <PropertyColumn Property="p => p.Name" Title="Hero Name"/>
-            <PropertyColumn Property="p => p.GamesPlayed" Title="Games Played"/>
-            <PropertyColumn Property="p => p.WinRate" Title="Win Rate" Format="P"/>
-        </Columns>
-        <PagerContent>
-                <MudDataGridPager T="PlayerHero" />
-            </PagerContent>
-    </MudDataGrid>
-}
+    @if (_playerHeroes != null)
+    {
+        <PlayerHeroesGrid PlayerHeroes="_playerHeroes" />
+    }
 </div>
 
 @code
 {
     private string _steamId;
-    private bool _isLoading;
-    private int _count;
-    private GridConfiguration _conf;
     private IEnumerable<PlayerHero> _playerHeroes;
-    private List<PlayerHero> data;
+    private IEnumerable<SearchPlayerResult> _playerResults;
 
     private async Task OnSearchClick()
     {
-        _playerHeroes = await _SearchController.SearchTopPlayerHeroes(long.Parse(_steamId));
+        
+        if (int.TryParse(_steamId, out int id))
+        {
+            _playerHeroes = await SearchController.SearchTopPlayerHeroes(id);
+        }
+        else
+        {
+            _playerResults = await SearchController.SearchPlayer(_steamId);
+        }
+        
     }
 }
