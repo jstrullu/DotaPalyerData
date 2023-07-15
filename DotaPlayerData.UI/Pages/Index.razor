@@ -9,11 +9,11 @@
     </div>
 @if (_playerHeroes != null)
 {
-    <MudDataGrid T="PlayerHero" Items="_playerHeroes" SortMode="@SortMode.Single" Height="500px" FixedHeader="true" FixedFooter="true">
+    <MudDataGrid T="PlayerHero" Items="_playerHeroes" SortMode="@SortMode.Single" FixedHeader="true" FixedFooter="true">
         <Columns>
             <PropertyColumn Property="p => p.Name" Title="Hero Name"/>
             <PropertyColumn Property="p => p.GamesPlayed" Title="Games Played"/>
-            <PropertyColumn Property="p => p.WinRate" Title="Win Rate" Format="P2"/>
+            <PropertyColumn Property="p => p.WinRate" Title="Win Rate" Format="P"/>
         </Columns>
         <PagerContent>
                 <MudDataGridPager T="PlayerHero" />
