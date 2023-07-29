@@ -14,7 +14,14 @@ public class PlayerService : IPlayerService
     
     public async Task<List<SearchPlayerResult>> SearchPlayer(string name)
     {
-        var result = await _openDotaApiClient.SearchPlayer(name);
-        return JsonSerializer.Deserialize<List<SearchPlayerResult>>(result);
+        try
+        {
+            var result = await _openDotaApiClient.SearchPlayer(name);
+            return JsonSerializer.Deserialize<List<SearchPlayerResult>>(result);
+        }
+        catch (JsonException e)
+        {
+            throw;
+        }
     }
 }

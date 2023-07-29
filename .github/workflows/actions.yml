@@ -14,15 +14,34 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 7.x.x
+          
       - name: Install MAUI workload
-        run: dotnet workload install maui
+        run: |
+          dotnet new tool-manifest
+          dotnet tool install dotnet-reportgenerator-globaltool
+          dotnet tool install dotnet-coverage
+          dotnet workload install maui
+          
       - name: Restore
         run: dotnet restore /p:PublishReadyToRun=true
+        
       - name: Build
         run: dotnet build DotaPlayerData.UI/DotaPlayerData.UI.csproj --no-restore -c Release -f:net7.0-windows10.0.19041.0
+        
       - name: Test
-        run: dotnet test --nologo 
+        run: dotnet coverage collect dotnet test DotaPlayerData.Tests/DotaPlayerData.Tests.csproj --output .\Tests\CodeCoverage.cobertura.xml --output-format cobertura
+        
+      - name: Report Generator
+        run: |
+          dotnet reportgenerator -reports:.\Tests\CodeCoverage.cobertura.xml -targetdir:coveragereport -reporttypes:MarkdownSummaryGithub
+
+      - name: Comment Pull Request
+        if: github.event_name == 'pull_request'
+        uses: thollander/actions-comment-pull-request@v2.4.0
+        with:
+          filePath: coveragereport\SummaryGithub.md

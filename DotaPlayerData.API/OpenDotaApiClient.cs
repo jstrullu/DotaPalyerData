@@ -22,9 +22,9 @@ public class OpenDotaApiClient : IOpenDotaApiClient
 
             string heroesEndPoint = _baseUri.AppendPathSegment("heroes");
 
-            var response = await heroesEndPoint.GetAsync();
+            var response = await heroesEndPoint.GetAsync().ConfigureAwait(false);
 
-            return await response.GetStringAsync();
+            return await response.GetStringAsync().ConfigureAwait(false);
         }
         catch (FlurlHttpException ex)
         {
@@ -38,9 +38,9 @@ public class OpenDotaApiClient : IOpenDotaApiClient
         {
             string matchEndpoint = _baseUri.AppendPathSegment($"players/{steamId}/matches");
 
-            var response = await matchEndpoint.GetAsync();
+            var response = await matchEndpoint.GetAsync().ConfigureAwait(false);
 
-            return await response.GetStringAsync();
+            return await response.GetStringAsync().ConfigureAwait(false);
         }
         catch (FlurlHttpException e)
         {
@@ -54,9 +54,9 @@ public class OpenDotaApiClient : IOpenDotaApiClient
         {
             string playerEndpoint = _baseUri.AppendPathSegment($"players/{steamId}");
 
-            var response = await playerEndpoint.GetAsync();
+            var response = await playerEndpoint.GetAsync().ConfigureAwait(false);
         
-            return await response.GetStringAsync();
+            return await response.GetStringAsync().ConfigureAwait(false);
         }
         catch (FlurlHttpException e)
         {
@@ -69,9 +69,9 @@ public class OpenDotaApiClient : IOpenDotaApiClient
         try
         {
             string searchEndpoint = _baseUri.AppendPathSegment("search").SetQueryParam("q", name);
-            var response = await searchEndpoint.GetAsync();
+            var response = await searchEndpoint.GetAsync().ConfigureAwait(false);
 
-            return await response.GetStringAsync();
+            return await response.GetStringAsync().ConfigureAwait(false);
         }
         catch (FlurlHttpException e)
         {

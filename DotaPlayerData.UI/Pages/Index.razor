@@ -25,6 +25,10 @@
 
     private async Task OnSearchClick()
     {
+        if (string.IsNullOrEmpty(_steamId))
+        {
+            return;
+        }
         
         if (int.TryParse(_steamId, out int id))
         {
