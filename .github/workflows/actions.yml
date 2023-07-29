@@ -23,6 +23,6 @@ jobs:
       - name: Restore
         run: dotnet restore /p:PublishReadyToRun=true
       - name: Build
-        run: dotnet build NextLegalSolution.MICEN.Front/NextLegalSolution.MICEN.Front.csproj --no-restore -c Release -f:net7.0-windows10.0.19041.0
+        run: dotnet build DotaPlayerData.UI/DotaPlayerData.UI.csproj --no-restore -c Release -f:net7.0-windows10.0.19041.0
       - name: Test
         run: dotnet test --nologo 
