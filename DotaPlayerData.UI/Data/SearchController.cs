@@ -6,9 +6,10 @@ public class SearchController
 {
     private readonly IHeroService _heroService;
     private readonly IPlayerService _playerService;
-    public SearchController(IHeroService heroService)
+    public SearchController(IHeroService heroService, IPlayerService playerService)
     {
         _heroService = heroService;
+        _playerService = playerService;
     }
 
     public async Task<IQueryable<PlayerHero>> SearchTopPlayerHeroes(long steamId)

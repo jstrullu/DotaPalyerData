@@ -24,6 +24,7 @@ public static class MauiProgram
 #endif
         builder.Services.AddScoped<IOpenDotaApiClient, OpenDotaApiClient>();
         builder.Services.AddScoped<IHeroService, HeroService>();
+        builder.Services.AddScoped<IPlayerService, PlayerService>();
         builder.Services.AddScoped<SearchController>();
 
         return builder.Build();

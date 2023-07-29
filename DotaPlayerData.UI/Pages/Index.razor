@@ -11,6 +11,10 @@
     {
         <PlayerHeroesGrid PlayerHeroes="_playerHeroes" />
     }
+    @if (_playerResults != null)
+    {
+        <SearchResultGrid SearchPlayerResults="_playerResults"/>
+    }
 </div>
 
 @code
@@ -25,10 +29,12 @@
         if (int.TryParse(_steamId, out int id))
         {
             _playerHeroes = await SearchController.SearchTopPlayerHeroes(id);
+            _playerResults = null;
         }
         else
         {
             _playerResults = await SearchController.SearchPlayer(_steamId);
+            _playerHeroes = null;
         }
         
     }
