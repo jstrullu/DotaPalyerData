@@ -13,7 +13,7 @@
     }
     @if (_playerResults != null)
     {
-        <SearchResultGrid SearchPlayerResults="_playerResults"/>
+        <SearchResultGrid SearchPlayerResults="_playerResults" OnPlayerSelected="@LoadPlayerData"/>
     }
 </div>
 
@@ -41,5 +41,12 @@
             _playerHeroes = null;
         }
         
+    }
+
+    private async void LoadPlayerData(int accountId)
+    {
+        _playerHeroes = await SearchController.SearchTopPlayerHeroes(accountId);
+        _playerResults = null;
+        StateHasChanged();
     }
 }

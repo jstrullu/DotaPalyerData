@@ -6,7 +6,7 @@
         <MudList Clickable="true" @bind-SelectedItem="selectedItem" Color="Color.Success">
             @foreach (var player in SearchPlayerResults)
             {
-                <MudListItem Value="player.AccountId" Class="player-list-item">
+                <MudListItem Value="player.AccountId" Class="player-list-item" OnClick="() => LoadPlayerData(player.AccountId)">
                     <MudStack Row="true">
                     <MudImage Src="@player.AvatarFull" Class="rounded-lg" Width="50" Height="50" Elevation="25"/>
                     <MudText>@player.PersonaName</MudText>
@@ -20,8 +20,15 @@
 @code {
     [Parameter]
     public IEnumerable<SearchPlayerResult> SearchPlayerResults { get; set; }
-
+    
+    [Parameter]
+    public Action<int> OnPlayerSelected { get; set; }
+    
     MudListItem selectedItem;
 
+    private void LoadPlayerData(int playerAccountId)
+    {
+        OnPlayerSelected.Invoke(playerAccountId);
+    }
 
 }
