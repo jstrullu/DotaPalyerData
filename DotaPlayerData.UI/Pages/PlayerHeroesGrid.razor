@@ -1,0 +1,21 @@
+﻿@using DotaPlayerData.Core
+<div>
+    @if (PlayerHeroes != null)
+    {
+        <MudDataGrid T="PlayerHero" Items="PlayerHeroes" SortMode="@SortMode.Single" FixedHeader="true" FixedFooter="true">
+            <Columns>
+                <PropertyColumn Property="p => p.Name" Title="Hero Name"/>
+                <PropertyColumn Property="p => p.GamesPlayed" Title="Games Played"/>
+                <PropertyColumn Property="p => p.WinRate" Title="Win Rate" Format="P"/>
+            </Columns>
+            <PagerContent>
+                    <MudDataGridPager T="PlayerHero" />
+                </PagerContent>
+        </MudDataGrid>
+    }
+</div>
+
+@code {
+    [Parameter] 
+    public IEnumerable<PlayerHero> PlayerHeroes { get; set; }
+}

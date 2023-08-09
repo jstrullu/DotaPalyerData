@@ -17,5 +17,5 @@ public class SearchPlayerResult
     public string LastMatchTime { get; set; }
     
     [JsonPropertyName("similarity")]
-    public int Similarity { get; set; }
+    public float Similarity { get; set; }
 }
