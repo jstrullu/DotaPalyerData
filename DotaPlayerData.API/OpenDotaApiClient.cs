@@ -18,8 +18,6 @@ public class OpenDotaApiClient : IOpenDotaApiClient
     {
         try
         {
-
-
             string heroesEndPoint = _baseUri.AppendPathSegment("heroes");
 
             var response = await heroesEndPoint.GetAsync().ConfigureAwait(false);

@@ -14,14 +14,7 @@ public class Player
     [JsonPropertyName("rank_tier")]
     public int? RankTier { get; set; }
 
-    public string Rank
-    {
-        get
-        {
-            var main = (Ranks)((RankTier ?? 0) / 10);
-            var unit = RankTier % 10;
-            return main.ToString() + " " + unit.ToString();
-        }
-        
-    }
+    public Ranks MainRank => (Ranks)((RankTier ?? 0) / 10);
+    public int RankStars => (RankTier ?? 0) % 10;
+    public string Rank => MainRank + " " + RankStars;
 }

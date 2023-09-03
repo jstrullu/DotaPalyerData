@@ -1,5 +1,6 @@
 ﻿using DotaPlayerData.API;
-using DotaPlayerData.Core;
+using DotaPlayerData.Core.Services;
+using DotaPlayerData.Core.Services.Impl;
 using DotaPlayerData.UI.Data;
 using Microsoft.Extensions.Logging;
 using MudBlazor.Services;

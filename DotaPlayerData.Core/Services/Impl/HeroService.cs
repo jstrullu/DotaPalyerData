@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using DotaPlayerData.API;
 
-namespace DotaPlayerData.Core;
+namespace DotaPlayerData.Core.Services.Impl;
 
 public class HeroService : IHeroService
 {
@@ -52,12 +52,5 @@ public class HeroService : IHeroService
     {
         var result = await _openDotaApiClient.GetAllDotaHeroes();
         return JsonSerializer.Deserialize<List<Hero>>(result);
-    }
-    
-    public async Task<Player> GetCurrentPlayerInfos(long steamId)
-    {
-        var result = await _openDotaApiClient.GetPlayerInfos(steamId);
-
-        return JsonSerializer.Deserialize<Player>(result) ?? throw new InvalidOperationException();
     }
 }
