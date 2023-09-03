@@ -1,6 +1,6 @@
 using Flurl.Http.Testing;
 using System.Net;
-using DotaPlayerData.API;
+using DotaPlayerData.API.Impl;
 using FluentAssertions;
 using Flurl.Http;
 

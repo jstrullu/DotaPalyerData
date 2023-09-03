@@ -1,4 +1,4 @@
-﻿namespace DotaPlayerData.API;
+﻿namespace DotaPlayerData.API.Impl;
 
 public class StratzAPI
 {
