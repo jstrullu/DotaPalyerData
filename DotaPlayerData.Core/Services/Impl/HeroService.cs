@@ -20,7 +20,7 @@ public class HeroService : IHeroService
             throw new Exception("No global heroes list found");
 
         var playerMatches = await GetPlayerMatches(steamId);
-        if (playerMatches == null)
+        if (playerMatches == null || !playerMatches.Any())
             throw new Exception("No matches in list");
         
         List<PlayerHero> playerHeroes = new();
