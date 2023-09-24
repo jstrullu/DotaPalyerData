@@ -6,17 +6,17 @@
                     <div style="position: relative; text-align: left">
                         <MudImage Src="@PlayerData.Profile.Avatar" Elevation="30" Class="rounded-lg"/>  
                         <div style="position: absolute; top: 0; left: 0;">
-                            <MudImage Src="@_rankURL" Height="60"/>
+                            <MudImage Src="@_rankUrl" Height="60"/>
                         </div>
                         <div style="position: absolute; top:0; left: 0;">
-                            <MudImage Src="@_starsURL" Height="60"/>
+                            <MudImage Src="@_starsUrl" Height="60"/>
                         </div>
                     </div>
                 </MudItem>
                 <MudItem>
-                    <MudImage Src="@_flagURL"/>
+                    <MudImage Src="@_flagUrl"/>
                     <MudText>@PlayerData.Profile.Name</MudText>
-                    <MudText>@PlayerData.MMREstimate.Estimate Estimated MMR</MudText>
+                    <MudText>@PlayerData.MmrEstimate.Estimate Estimated MMR</MudText>
                 </MudItem>
             </MudGrid>
         </MudCardContent>
@@ -26,15 +26,15 @@
     [Parameter]
     public Player PlayerData { get; set; }
 
-    private string _flagURL;
-    private string _rankURL;
-    private string _starsURL;
+    private string _flagUrl;
+    private string _rankUrl;
+    private string _starsUrl;
 
     protected override void OnParametersSet()
     {
-        _flagURL = "https://flagsapi.com/" + PlayerData.Profile.CountryCode + "/shiny/32.png";
-        _rankURL = "https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_" + (int)PlayerData.MainRank + ".png";
-        _starsURL = "https://www.opendota.com/assets/images/dota2/rank_icons/rank_star_" + PlayerData.RankStars + ".png";
+        _flagUrl = "https://flagsapi.com/" + PlayerData.Profile.CountryCode + "/shiny/32.png";
+        _rankUrl = "https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_" + (int)PlayerData.MainRank + ".png";
+        _starsUrl = "https://www.opendota.com/assets/images/dota2/rank_icons/rank_star_" + PlayerData.RankStars + ".png";
         base.OnParametersSet();
     }
 

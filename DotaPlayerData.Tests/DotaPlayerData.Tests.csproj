@@ -22,6 +22,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DotaPlayerData.API\DotaPlayerData.API.csproj" />
+      <ProjectReference Include="..\DotaPlayerData.Core\DotaPlayerData.Core.csproj" />
     </ItemGroup>
 
 </Project>

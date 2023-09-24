@@ -1,6 +1,6 @@
 ﻿namespace DotaPlayerData.API;
 
-public interface IStratzAPI
+public interface IStratzApi
 {
     
 }

@@ -1,7 +1,7 @@
 ﻿namespace DotaPlayerData.API.Impl;
 
-public class StratzAPI
+public class StratzApi
 {
-    private const string API_KEY =
+    private const string ApiKey =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTdWJqZWN0IjoiMGVjNTFiY2UtOWJjOS00NDM0LTlhYTMtNTFmMGNhYjIzYWJjIiwiU3RlYW1JZCI6IjI1Mjc3MTM1IiwibmJmIjoxNjkzNzU4NzUxLCJleHAiOjE3MjUyOTQ3NTEsImlhdCI6MTY5Mzc1ODc1MSwiaXNzIjoiaHR0cHM6Ly9hcGkuc3RyYXR6LmNvbSJ9.J-MuI-ulbSyzgGOV35N28JWm0asZSDYgzPc2GhGrlY8";
 }

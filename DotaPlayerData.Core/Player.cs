@@ -9,7 +9,7 @@ public class Player
     public Profile Profile { get; set; }
 
     [JsonPropertyName("mmr_estimate")]
-    public MMR MMREstimate { get; set; }
+    public Mmr MmrEstimate { get; set; }
 
     [JsonPropertyName("rank_tier")]
     public int? RankTier { get; set; }
