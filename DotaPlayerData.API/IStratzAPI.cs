@@ -2,5 +2,5 @@
 
 public interface IStratzApi
 {
-    
+    Task<string> GetPlayerInfos(long steamId);
 }
