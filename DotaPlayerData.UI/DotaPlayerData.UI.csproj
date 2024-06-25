@@ -11,7 +11,8 @@
         <SingleProject>true</SingleProject>
         <ImplicitUsings>enable</ImplicitUsings>
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
-
+        <SelfContained>true</SelfContained>
+        
         <!-- Display name -->
         <ApplicationTitle>DotaPlayerData.UI</ApplicationTitle>
 
@@ -51,6 +52,8 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.40" />
         <PackageReference Include="MudBlazor" Version="6.11.0" />
     </ItemGroup>
 
