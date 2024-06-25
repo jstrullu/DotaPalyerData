@@ -1,4 +1,7 @@
-﻿namespace DotaPlayerData.UI;
+﻿using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+
+namespace DotaPlayerData.UI;
 
 public partial class App : Application
 {
