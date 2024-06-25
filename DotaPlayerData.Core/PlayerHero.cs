@@ -26,18 +26,18 @@ public class PlayerHero
     [JsonPropertyName("win")]
     public int WinCount
     {
-        get => _win;
+        get => Win;
         set
         {
-            _win = value;
+            Win = value;
             OnPropertyChanged(nameof(WinCount));
             OnPropertyChanged(nameof(WinRate));
         }
     }
 
-    private int _win { get; set; }
+    private int Win { get; set; }
 
-    public double WinRate => (double)_win / (double)Games;
+    public double WinRate => (double)Win / (double)Games;
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

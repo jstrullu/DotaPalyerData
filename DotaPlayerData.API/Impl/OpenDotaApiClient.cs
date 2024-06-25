@@ -1,8 +1,7 @@
-﻿
-using Flurl;
+﻿using Flurl;
 using Flurl.Http;
 
-namespace DotaPlayerData.API;
+namespace DotaPlayerData.API.Impl;
 
 // All the code in this file is included in all platforms.
 public class OpenDotaApiClient : IOpenDotaApiClient
@@ -18,8 +17,6 @@ public class OpenDotaApiClient : IOpenDotaApiClient
     {
         try
         {
-
-
             string heroesEndPoint = _baseUri.AppendPathSegment("heroes");
 
             var response = await heroesEndPoint.GetAsync().ConfigureAwait(false);

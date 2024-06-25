@@ -9,6 +9,10 @@ public class Profile
 
     [JsonPropertyName("avatarfull")]
     public string Avatar { get; set; }
+    
+    [JsonPropertyName("loccountrycode")]
+    public string CountryCode { get; set; }
+    
     public List<PlayerHero> Heroes { get; set; }
     public List<Match> Matches { get; set; }
 }

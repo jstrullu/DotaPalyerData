@@ -1,4 +1,4 @@
-﻿namespace DotaPlayerData.Core;
+﻿namespace DotaPlayerData.Core.Services;
 
 public interface IHeroService
 {

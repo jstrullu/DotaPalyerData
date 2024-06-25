@@ -2,7 +2,7 @@
 
 namespace DotaPlayerData.Core;
 
-public class MMR
+public class Mmr
 {
     [JsonPropertyName("estimate")]
     public int Estimate { get; set; }

@@ -1,4 +1,5 @@
 ﻿using DotaPlayerData.Core;
+using DotaPlayerData.Core.Services;
 
 namespace DotaPlayerData.UI.Data;
 
@@ -20,5 +21,10 @@ public class SearchController
     public async Task<List<SearchPlayerResult>> SearchPlayer(string name)
     {
         return await _playerService.SearchPlayer(name);
+    }
+
+    public async Task<Player> SearchPlayerInfos(long steamId)
+    {
+        return await _playerService.GetCurrentPlayerInfos(steamId);
     }
 }
