@@ -1,8 +1,11 @@
-using Flurl.Http.Testing;
 using System.Net;
+using DotaPlayerData.API.Configuration;
 using DotaPlayerData.API.Impl;
 using FluentAssertions;
 using Flurl.Http;
+using Flurl.Http.Testing;
+
+namespace DotaPlayerData.Tests;
 
 [TestFixture]
 public class OpenDotaApiClientTests
@@ -14,7 +17,10 @@ public class OpenDotaApiClientTests
     public void SetUp()
     {
         _httpTest = new HttpTest();
-        _openDotaApiClient = new OpenDotaApiClient();
+        _openDotaApiClient = new OpenDotaApiClient(new OpenDotaConfiguration
+        {
+            BaseUrl = "https://api.opendota.com/api/"
+        });
     }
 
     [TearDown]
