@@ -1,6 +1,4 @@
-﻿
-
-using System.Reflection;
+﻿using System.Reflection;
 using DotaPlayerData.API;
 using DotaPlayerData.API.Configuration;
 using DotaPlayerData.API.Impl;
@@ -22,6 +20,7 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .ConfigureFonts(fonts => { fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular"); });
+        builder.AddAppSettings();
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddMudServices();
 
