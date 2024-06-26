@@ -1,7 +1,12 @@
 ﻿using DotaPlayerData.API;
-using DotaPlayerData.Core;
+using DotaPlayerData.API.Impl;
+using DotaPlayerData.Core.Services;
+using DotaPlayerData.Core.Services.Impl;
 using DotaPlayerData.UI.Data;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls.Hosting;
+using Microsoft.Maui.Hosting;
 using MudBlazor.Services;
 
 namespace DotaPlayerData.UI;

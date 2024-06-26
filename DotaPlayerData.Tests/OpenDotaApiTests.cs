@@ -1,6 +1,6 @@
 using Flurl.Http.Testing;
 using System.Net;
-using DotaPlayerData.API;
+using DotaPlayerData.API.Impl;
 using FluentAssertions;
 using Flurl.Http;
 
@@ -50,6 +50,35 @@ public class OpenDotaApiClientTests
         Assert.ThrowsAsync<FlurlHttpException>(async () =>
         {
             await _openDotaApiClient.GetAllDotaHeroes();
+        });
+    }
+
+    [Test]
+    public async Task GetPlayerMatches_ShouldReturnMatches()
+    {
+        string expectedContent = "Mocked Player Data";
+        _httpTest.RespondWith(expectedContent, (int)HttpStatusCode.OK);
+        long steamId = 123456;
+
+        string result = await _openDotaApiClient.GetPlayerMatches(123456);
+
+        result.Should().Be(expectedContent);
+        _httpTest.ShouldHaveCalled($"https://api.opendota.com/api/players/{steamId}/matches")
+            .WithVerb(HttpMethod.Get)
+            .Times(1);
+    }
+    
+    [Test]
+    public void GetPlayerMatches_WhenRequestFails_ShouldThrowException()
+    {
+        // Arrange
+        _httpTest.RespondWith("Error", (int)HttpStatusCode.InternalServerError);
+        long steamId = 123456; 
+
+        // Act & Assert
+        Assert.ThrowsAsync<FlurlHttpException>(async () =>
+        {
+            await _openDotaApiClient.GetPlayerMatches(123456);
         });
     }
 }

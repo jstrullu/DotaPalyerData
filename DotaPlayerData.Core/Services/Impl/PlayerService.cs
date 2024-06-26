@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using DotaPlayerData.API;
 
-namespace DotaPlayerData.Core;
+namespace DotaPlayerData.Core.Services.Impl;
 
 public class PlayerService : IPlayerService
 {
@@ -23,5 +23,12 @@ public class PlayerService : IPlayerService
         {
             throw;
         }
+    }
+    
+    public async Task<Player> GetCurrentPlayerInfos(long steamId)
+    {
+        var result = await _openDotaApiClient.GetPlayerInfos(steamId);
+
+        return JsonSerializer.Deserialize<Player>(result) ?? throw new InvalidOperationException();
     }
 }

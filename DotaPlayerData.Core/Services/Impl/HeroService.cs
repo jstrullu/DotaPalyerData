@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using DotaPlayerData.API;
 
-namespace DotaPlayerData.Core;
+namespace DotaPlayerData.Core.Services.Impl;
 
 public class HeroService : IHeroService
 {
@@ -20,7 +20,7 @@ public class HeroService : IHeroService
             throw new Exception("No global heroes list found");
 
         var playerMatches = await GetPlayerMatches(steamId);
-        if (playerMatches == null)
+        if (playerMatches == null || !playerMatches.Any())
             throw new Exception("No matches in list");
         
         List<PlayerHero> playerHeroes = new();
@@ -52,12 +52,5 @@ public class HeroService : IHeroService
     {
         var result = await _openDotaApiClient.GetAllDotaHeroes();
         return JsonSerializer.Deserialize<List<Hero>>(result);
-    }
-    
-    public async Task<Player> GetCurrentPlayerInfos(long steamId)
-    {
-        var result = await _openDotaApiClient.GetPlayerInfos(steamId);
-
-        return JsonSerializer.Deserialize<Player>(result) ?? throw new InvalidOperationException();
     }
 }
