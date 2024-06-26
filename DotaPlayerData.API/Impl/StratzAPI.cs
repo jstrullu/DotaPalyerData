@@ -6,15 +6,13 @@ namespace DotaPlayerData.API.Impl;
 
 public class StratzApi(StratzConfiguration stratzConfiguration) : IStratzApi
 {
-    private readonly StratzConfiguration _stratzConfiguration = stratzConfiguration;
-
     public async Task<string> GetPlayerInfos(long steamId)
     {
         try
         {
-            string playerEndpoint = _stratzConfiguration.BaseUrl.AppendPathSegment($"player/{steamId}");
+            string playerEndpoint = stratzConfiguration.BaseUrl.AppendPathSegment($"player/{steamId}");
 
-            var response = await playerEndpoint.WithOAuthBearerToken(_stratzConfiguration.ApiKey).GetAsync().ConfigureAwait(false);
+            var response = await playerEndpoint.WithOAuthBearerToken(stratzConfiguration.ApiKey).GetAsync().ConfigureAwait(false);
             return await response.GetStringAsync().ConfigureAwait(false);
         }
         catch (FlurlHttpException e)

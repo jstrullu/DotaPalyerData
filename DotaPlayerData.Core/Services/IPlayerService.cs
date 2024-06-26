@@ -1,4 +1,5 @@
-﻿using DotaPlayerData.Core.Models.OpenDota;
+﻿using DotaPlayerData.Core.Models;
+using DotaPlayerData.Core.Models.OpenDota;
 
 namespace DotaPlayerData.Core.Services;
 

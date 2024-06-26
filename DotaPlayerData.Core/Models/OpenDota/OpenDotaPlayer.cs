@@ -2,7 +2,7 @@
 
 namespace DotaPlayerData.Core.Models.OpenDota;
 
-public class Player
+public class OpenDotaPlayer
 {
     [JsonPropertyName("profile")]
     public Profile Profile { get; set; }
