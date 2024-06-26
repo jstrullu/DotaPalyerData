@@ -1,4 +1,6 @@
-﻿namespace DotaPlayerData.Core.Services;
+﻿using DotaPlayerData.Core.Models.OpenDota;
+
+namespace DotaPlayerData.Core.Services;
 
 public interface IPlayerService
 {

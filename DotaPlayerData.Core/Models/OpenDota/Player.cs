@@ -1,7 +1,6 @@
 ﻿using System.Text.Json.Serialization;
-using Microsoft.Maui.Controls.Internals;
 
-namespace DotaPlayerData.Core;
+namespace DotaPlayerData.Core.Models.OpenDota;
 
 public class Player
 {

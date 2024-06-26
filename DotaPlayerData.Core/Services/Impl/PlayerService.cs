@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using DotaPlayerData.API;
+using DotaPlayerData.Core.Models.OpenDota;
 
 namespace DotaPlayerData.Core.Services.Impl;
 

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace DotaPlayerData.Core;
+namespace DotaPlayerData.Core.Models.OpenDota;
 
 public class Profile
 {

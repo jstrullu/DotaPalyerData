@@ -1,11 +1,12 @@
 using System.Text.Json;
 using DotaPlayerData.API;
 using DotaPlayerData.Core;
+using DotaPlayerData.Core.Models.OpenDota;
 using DotaPlayerData.Core.Services;
 using DotaPlayerData.Core.Services.Impl;
 using FluentAssertions;
 using Moq;
-using Match = DotaPlayerData.Core.Match;
+using Match = DotaPlayerData.Core.Models.OpenDota.Match;
 
 namespace DotaPlayerData.Tests;
 
