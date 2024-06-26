@@ -4,6 +4,7 @@ using DotaPlayerData.Core.Models;
 using DotaPlayerData.Core.Models.OpenDota;
 using DotaPlayerData.Core.Models.Stratz;
 using Profile = DotaPlayerData.Core.Models.Profile;
+using Team = DotaPlayerData.Core.Models.Team;
 
 namespace DotaPlayerData.Core.Services.Impl;
 
@@ -50,7 +51,12 @@ public class PlayerService(IOpenDotaApiClient openDotaApiClient, IStratzApi stra
             MainRank = openDotaPlayer.MainRank,
             RankStars = openDotaPlayer.RankStars,
             WinCount = stratzPlayer.WinCount,
-            MatchCount = stratzPlayer.MatchCount
+            MatchCount = stratzPlayer.MatchCount,
+            Team = new Team
+            {
+                Name = stratzPlayer.Team.Name,
+                Logo = stratzPlayer.Team.Logo
+            }
         };
     }
 }

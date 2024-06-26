@@ -14,4 +14,6 @@ public class Player
     public int MatchCount { get; set; }
 
     public int LossCount => MatchCount - WinCount;
+
+    public Team Team { get; set; }
 }

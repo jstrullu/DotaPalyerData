@@ -12,7 +12,7 @@
     {
         <MudTabs Elevation="4" Rounded="true" ApplyEffectsToContainer="true">
             <MudTabPanel Text="Palyer infos">
-                <PlayerInfos PlayerData="_openDotaPlayerPlayerInfos"/>
+                <PlayerInfos PlayerData="_playerInfos"/>
             </MudTabPanel>
             <MudTabPanel Text="Heroes played">
                 <PlayerHeroesGrid PlayerHeroes="_playerHeroes"/>
@@ -31,7 +31,7 @@
     private string _steamId;
     private IEnumerable<PlayerHero> _playerHeroes;
     private IEnumerable<SearchPlayerResult> _playerResults;
-    private Player _openDotaPlayerPlayerInfos;
+    private Player _playerInfos;
 
     private async Task OnSearchClick()
     {
@@ -43,7 +43,7 @@
         if (int.TryParse(_steamId, out int id))
         {
             _playerHeroes = await SearchController.SearchTopPlayerHeroes(id);
-            _openDotaPlayerPlayerInfos = await SearchController.SearchPlayerInfos(id);
+            _playerInfos = await SearchController.SearchPlayerInfos(id);
             _playerResults = null;
         }
         else
@@ -57,7 +57,7 @@
     private async void LoadPlayerData(int accountId)
     {
         _playerHeroes = await SearchController.SearchTopPlayerHeroes(accountId);
-        _openDotaPlayerPlayerInfos = await SearchController.SearchPlayerInfos(accountId);
+        _playerInfos = await SearchController.SearchPlayerInfos(accountId);
         _playerResults = null;
         StateHasChanged();
     }
