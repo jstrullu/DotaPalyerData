@@ -1,0 +1,17 @@
+@using DotaPlayerData.Core.Models
+<div>
+    <MudCard>
+        <MudCardContent>
+            <MudGrid Justify="Justify.FlexStart" Spacing="5">
+                <MudItem>
+                    <MudImage Src="@TeamData.Logo" Elevation="30" Class="rounded-lg" />
+                    <MudText>@TeamData.Name</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
+</div>
+
+@code {
+    [Parameter] public Team TeamData { get; set; }
+}

@@ -1,6 +1,7 @@
 ﻿using DotaPlayerData.API;
 using DotaPlayerData.Core.Models.OpenDota;
 using DotaPlayerData.Core.Models.Stratz;
+using DotaPlayerData.Core.Services;
 using DotaPlayerData.Core.Services.Impl;
 using FluentAssertions;
 using Moq;
@@ -14,12 +15,14 @@ public class PlayerServiceTest
     private PlayerService _playerService;
     private Mock<IOpenDotaApiClient> _mockOpenDota;
     private Mock<IStratzApi> _mockStratz;
+    private Mock<ITeamService> _mockTeamService;
 
     [SetUp]
     public void Setup(){
         _mockOpenDota = new Mock<IOpenDotaApiClient>();
         _mockStratz = new Mock<IStratzApi>();
-        _playerService = new PlayerService(_mockOpenDota.Object, _mockStratz.Object);
+        _mockTeamService = new Mock<ITeamService>();
+        _playerService = new PlayerService(_mockOpenDota.Object, _mockStratz.Object, _mockTeamService.Object);
     }
 
     [Test]

@@ -11,7 +11,7 @@ using Team = DotaPlayerData.Core.Models.Team;
 [assembly:InternalsVisibleTo("DotaPlayerData.Tests")]
 namespace DotaPlayerData.Core.Services.Impl;
 
-public class PlayerService(IOpenDotaApiClient openDotaApiClient, IStratzApi stratzApi) : IPlayerService
+public class PlayerService(IOpenDotaApiClient openDotaApiClient, IStratzApi stratzApi, ITeamService teamService) : IPlayerService
 {
 
     public async Task<List<SearchPlayerResult>> SearchPlayer(string name)
@@ -36,6 +36,9 @@ public class PlayerService(IOpenDotaApiClient openDotaApiClient, IStratzApi stra
         result = await stratzApi.GetPlayerInfos(steamId).ConfigureAwait(false);
 
         var stratzPlayer = JsonSerializer.Deserialize<StratzPlayer>(result);
+        var stratzTeam = await teamService.GetTeam(stratzPlayer.Team.TeamId);
+
+        stratzPlayer.Team = stratzTeam;
         
         return GetMergedPlayerInfos(stratzPlayer, openDotaPlayer);
     }
