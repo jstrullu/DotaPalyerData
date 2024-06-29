@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
 using DotaPlayerData.API;
 using DotaPlayerData.Core.Models;
 using DotaPlayerData.Core.Models.OpenDota;
@@ -6,6 +8,7 @@ using DotaPlayerData.Core.Models.Stratz;
 using Profile = DotaPlayerData.Core.Models.Profile;
 using Team = DotaPlayerData.Core.Models.Team;
 
+[assembly:InternalsVisibleTo("DotaPlayerData.Tests")]
 namespace DotaPlayerData.Core.Services.Impl;
 
 public class PlayerService(IOpenDotaApiClient openDotaApiClient, IStratzApi stratzApi) : IPlayerService
@@ -37,7 +40,7 @@ public class PlayerService(IOpenDotaApiClient openDotaApiClient, IStratzApi stra
         return GetMergedPlayerInfos(stratzPlayer, openDotaPlayer);
     }
 
-    private Player GetMergedPlayerInfos(StratzPlayer stratzPlayer, OpenDotaPlayer openDotaPlayer)
+    internal Player GetMergedPlayerInfos(StratzPlayer stratzPlayer, OpenDotaPlayer openDotaPlayer)
     {
         return new Player
         {
