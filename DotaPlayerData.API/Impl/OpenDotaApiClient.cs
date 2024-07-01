@@ -70,4 +70,12 @@ public class OpenDotaApiClient(OpenDotaConfiguration openDotaConfiguration) : IO
             throw;
         }
     }
+
+    public async Task<string> GetHeroesConstants()
+    {
+        string heroesConstantsEndpoint = openDotaConfiguration.BaseUrl.AppendPathSegment("constants/heroes");
+        var response = await heroesConstantsEndpoint.GetAsync().ConfigureAwait(false);
+
+        return await response.GetStringAsync().ConfigureAwait(false);
+    }
 }

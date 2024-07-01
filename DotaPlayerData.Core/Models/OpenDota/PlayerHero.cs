@@ -10,6 +10,8 @@ public class PlayerHero
     public string Name { get; set; }
     public int LastPlayed { get; set; }
     private int Games { get; set; }
+
+    public string Avatar { get; set; }
     
     [JsonPropertyName("games")]
     public int GamesPlayed

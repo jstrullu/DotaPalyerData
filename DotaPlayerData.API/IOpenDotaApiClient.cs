@@ -6,4 +6,5 @@ public interface IOpenDotaApiClient
     Task<string> GetPlayerMatches(long steamId);
     Task<string> GetPlayerInfos(long steamId);
     Task<string> SearchPlayer(string name);
+    Task<string> GetHeroesConstants();
 }

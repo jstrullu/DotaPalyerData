@@ -34,6 +34,7 @@ public static class MauiProgram
         builder.Services.AddScoped<IPlayerService, PlayerService>();
         builder.Services.AddScoped<IStratzApi, StratzApi>();
         builder.Services.AddScoped<ITeamService, TeamService>();
+        builder.Services.AddScoped<IMatchService, MatchService>();
         builder.Services.AddScoped<SearchController>();
         builder.Services.AddSingleton(builder.Configuration.GetSection("Stratz").Get<StratzConfiguration>());
         builder.Services.AddSingleton(builder.Configuration.GetSection("OpenDota").Get<OpenDotaConfiguration>());

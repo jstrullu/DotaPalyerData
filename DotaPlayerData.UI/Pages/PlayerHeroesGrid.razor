@@ -3,8 +3,13 @@
 <div>
     @if (PlayerHeroes != null)
     {
-        <MudDataGrid T="PlayerHero" Items="PlayerHeroes" SortMode="@SortMode.Single" FixedHeader="true" FixedFooter="true">
+        <MudDataGrid T="PlayerHero" Items="PlayerHeroes" SortMode="@SortMode.Single" FixedHeader="true" FixedFooter="true" Height="800px">
             <Columns>
+                <TemplateColumn>
+                    <CellTemplate>
+                        <MudImage Src="@context.Item.Avatar"/>
+                    </CellTemplate>
+                </TemplateColumn>
                 <PropertyColumn Property="p => p.Name" Title="Hero Name"/>
                 <PropertyColumn Property="p => p.GamesPlayed" Title="Games Played"/>
                 <PropertyColumn Property="p => p.WinRate" Title="Win Rate" Format="P"/>
