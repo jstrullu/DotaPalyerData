@@ -7,7 +7,7 @@ using FluentAssertions;
 using Moq;
 using Match = DotaPlayerData.Core.Models.OpenDota.Match;
 
-namespace DotaPlayerData.Tests;
+namespace DotaPlayerData.Tests.Services;
 
 [TestFixture]
 public class HeroServiceTest

@@ -1,13 +1,15 @@
-﻿using DotaPlayerData.API;
+﻿using System.Text.Json;
+using DotaPlayerData.API;
 using DotaPlayerData.Core.Models.OpenDota;
 using DotaPlayerData.Core.Models.Stratz;
 using DotaPlayerData.Core.Services;
 using DotaPlayerData.Core.Services.Impl;
 using FluentAssertions;
+using Flurl.Http;
 using Moq;
 using Match = DotaPlayerData.Core.Models.OpenDota.Match;
 
-namespace DotaPlayerData.Tests;
+namespace DotaPlayerData.Tests.Services;
 
 [TestFixture]
 public class PlayerServiceTest
@@ -47,15 +49,17 @@ public class PlayerServiceTest
             Names = [new Name{Naming = "Toto"}, new Name{Naming = "Tata"}],
             WinCount = 10,
             MatchCount = 20,
-            Team = new Team
+            Team = new TeamProfile
             {
-                Name = "Team",
-                Logo = ""
+                Team = new Team{
+                    Name = "Team",
+                    Logo = ""
+                }
             }
         };
         
         //Act
-        var result = _playerService.GetMergedPlayerInfos(stratzPlayer, openDotaPlayer);
+        var result = PlayerService.GetMergedPlayerInfos(stratzPlayer, openDotaPlayer);
         
         //Assert
         result.Should().NotBeNull();
@@ -68,7 +72,7 @@ public class PlayerServiceTest
         result.Profile.AllNames.Count.Should().Be(stratzPlayer.Names.Count);
         result.Profile.AllNames[0].Should().Be(stratzPlayer.Names[0].Naming);
         result.Team.Should().NotBeNull();
-        result.Team.Name.Should().Be(stratzPlayer.Team.Name);
+        result.Team.Name.Should().Be(stratzPlayer.Team.Team.Name);
     }
 
     [Test]
@@ -90,5 +94,29 @@ public class PlayerServiceTest
         result.Count.Should().Be(2);
         result[1].PersonaName.Should().Be("Père Dota");
 
+    }
+
+    [Test]
+    public void SearchPlayer_WithError_ShouldThrow()
+    {
+        _mockOpenDota.Setup(o => o.SearchPlayer(It.IsAny<string>())).ThrowsAsync(new FlurlHttpException(null));
+
+        Assert.ThrowsAsync<FlurlHttpException>(async () =>
+        {
+            await _playerService.SearchPlayer("Toto");
+        });
+    }
+
+    [Test]
+    public void SearchPlayer_WithDataError_ShouldThrowDeserialize()
+    {
+        const string fakeData = "fake data, for error";
+
+        _mockOpenDota.Setup(o => o.SearchPlayer(It.IsAny<string>())).ReturnsAsync(fakeData);
+
+        Assert.ThrowsAsync<JsonException>(async () =>
+        {
+            await _playerService.SearchPlayer("Toto");
+        });
     }
 }

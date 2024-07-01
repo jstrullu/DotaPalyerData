@@ -4,20 +4,10 @@ namespace DotaPlayerData.Core.Models.Stratz;
 
 public class Team
 {
-    [JsonPropertyName("teamId")]
-    public int TeamId { get; set; }
-    [JsonPropertyName("firstMatchId")]
-    public long FirstMatchId { get; set; }
-    [JsonPropertyName("firstMatchDateTime")]
-    public DateTime FirstMatchDateTime { get; set; }
-    [JsonPropertyName("lastMatchId")]
-    public long LastMatchId { get; set; }
-    [JsonPropertyName("lastMatchDateTime")]
-    public DateTime LastMatchDateTime { get; set; }
     [JsonPropertyName("members")]
     public List<Member> Members { get; set; }
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public long Id { get; set; }
     [JsonPropertyName("name")]
     public string Name { get; set; }
     [JsonPropertyName("logo")]

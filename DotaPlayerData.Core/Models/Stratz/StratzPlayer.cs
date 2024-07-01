@@ -27,7 +27,7 @@ public class StratzPlayer
     [JsonPropertyName("names")]
     public List<Name> Names { get; set; }
     [JsonPropertyName("team")]
-    public Team Team { get; set; }
+    public TeamProfile Team { get; set; }
     [JsonPropertyName("behaviorScore")]
     public int BehaviorScore { get; set; }
     [JsonPropertyName("steamAccountId")]

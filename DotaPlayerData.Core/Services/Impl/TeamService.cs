@@ -1,6 +1,7 @@
 using System.Text.Json;
 using DotaPlayerData.API;
 using DotaPlayerData.Core.Models.Stratz;
+using Flurl.Http;
 
 namespace DotaPlayerData.Core.Services.Impl;
 
@@ -14,7 +15,11 @@ public class TeamService(IStratzApi stratzApi) : ITeamService
             return JsonSerializer.Deserialize<Team>(result);
 
         }
-        catch (Exception e)
+        catch (JsonException)
+        {
+            throw;
+        }
+        catch (FlurlHttpException)
         {
             throw;
         }

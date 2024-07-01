@@ -5,6 +5,7 @@ using DotaPlayerData.API;
 using DotaPlayerData.Core.Models;
 using DotaPlayerData.Core.Models.OpenDota;
 using DotaPlayerData.Core.Models.Stratz;
+using Flurl.Http;
 using Profile = DotaPlayerData.Core.Models.Profile;
 using Team = DotaPlayerData.Core.Models.Team;
 
@@ -21,7 +22,11 @@ public class PlayerService(IOpenDotaApiClient openDotaApiClient, IStratzApi stra
             var result = await openDotaApiClient.SearchPlayer(name);
             return JsonSerializer.Deserialize<List<SearchPlayerResult>>(result);
         }
-        catch (JsonException e)
+        catch (JsonException)
+        {
+            throw;
+        }
+        catch (FlurlHttpException)
         {
             throw;
         }
@@ -36,14 +41,11 @@ public class PlayerService(IOpenDotaApiClient openDotaApiClient, IStratzApi stra
         result = await stratzApi.GetPlayerInfos(steamId).ConfigureAwait(false);
 
         var stratzPlayer = JsonSerializer.Deserialize<StratzPlayer>(result);
-        var stratzTeam = await teamService.GetTeam(stratzPlayer.Team.TeamId);
-
-        stratzPlayer.Team = stratzTeam;
         
         return GetMergedPlayerInfos(stratzPlayer, openDotaPlayer);
     }
 
-    internal Player GetMergedPlayerInfos(StratzPlayer stratzPlayer, OpenDotaPlayer openDotaPlayer)
+    internal static Player GetMergedPlayerInfos(StratzPlayer stratzPlayer, OpenDotaPlayer openDotaPlayer)
     {
         return new Player
         {
@@ -60,8 +62,8 @@ public class PlayerService(IOpenDotaApiClient openDotaApiClient, IStratzApi stra
             MatchCount = stratzPlayer.MatchCount,
             Team = new Team
             {
-                Name = stratzPlayer.Team.Name,
-                Logo = stratzPlayer.Team.Logo
+                Name = stratzPlayer.Team.Team.Name,
+                Logo = stratzPlayer.Team.Team.Logo
             }
         };
     }
