@@ -5,6 +5,7 @@
     @if (SearchPlayerResults != null)
     {
         <MudList T="SearchPlayerResult" SelectionMode="SelectionMode.SingleSelection" Color="Color.Success">
+
             @foreach (var player in SearchPlayerResults)
             {
                 <MudListItem Value="player.AccountId" Class="player-list-item" OnClick="() => LoadPlayerData(player.AccountId)">
