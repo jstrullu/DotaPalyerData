@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using DotaPlayerData.UI.Data
-@using DotaPlayerData.Core
+@using DotaPlayerData.Core.Models
+@using DotaPlayerData.Core.Models.OpenDota
 @inject SearchController SearchController
 <div>
     <div>
@@ -15,6 +16,9 @@
             </MudTabPanel>
             <MudTabPanel Text="Heroes played">
                 <PlayerHeroesGrid PlayerHeroes="_playerHeroes"/>
+            </MudTabPanel>
+            <MudTabPanel Text="Current Team">
+                <TeamInfos TeamData="_playerInfos.Team" />
             </MudTabPanel>
         </MudTabs>
         

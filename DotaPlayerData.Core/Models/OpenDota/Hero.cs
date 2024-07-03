@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace DotaPlayerData.Core;
+namespace DotaPlayerData.Core.Models.OpenDota;
 
 // All the code in this file is included in all platforms.
 public class Hero

@@ -5,12 +5,12 @@
              x:Class="DotaPlayerData.UI.MainPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              MinimumHeightRequest="1500">
-
-    <BlazorWebView x:Name="blazorWebView" HostPage="wwwroot/index.html"  HorizontalOptions="Fill"
-                   VerticalOptions="Fill">
-        <BlazorWebView.RootComponents>
-            <RootComponent Selector="#app" ComponentType="{x:Type local:Main}" />
-        </BlazorWebView.RootComponents>
-    </BlazorWebView>
-
+    <ScrollView VerticalOptions="Fill">
+        <BlazorWebView x:Name="blazorWebView" HostPage="wwwroot/index.html"  HorizontalOptions="Fill"
+                       VerticalOptions="Fill">
+            <BlazorWebView.RootComponents>
+                <RootComponent Selector="#app" ComponentType="{x:Type local:Main}" />
+            </BlazorWebView.RootComponents>
+        </BlazorWebView>
+    </ScrollView>
 </ContentPage>

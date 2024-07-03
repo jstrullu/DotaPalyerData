@@ -1,29 +1,24 @@
 ﻿using System.Text.Json;
 using DotaPlayerData.API;
+using DotaPlayerData.Core.Models.OpenDota;
 
 namespace DotaPlayerData.Core.Services.Impl;
 
-public class HeroService : IHeroService
+public class HeroService(IOpenDotaApiClient openDotaApiClient, IMatchService matchService) : IHeroService
 {
-    private readonly IOpenDotaApiClient _openDotaApiClient;
-    
-    public HeroService(IOpenDotaApiClient openDotaApiClient)
-    {
-        _openDotaApiClient = openDotaApiClient;
-    }
-
     public async Task<IQueryable<PlayerHero>> GetTopHeroesForPlayer(long steamId)
     {
         var dotaHeroes = await GetAllDotaHeroes();
+        var heroesConstants = await GetHeroesConstants();
 
-        if (!dotaHeroes.Any())
+        if (dotaHeroes.Count == 0)
             throw new Exception("No global heroes list found");
 
-        var playerMatches = await GetPlayerMatches(steamId);
-        if (playerMatches == null || !playerMatches.Any())
+        var playerMatches = await matchService.GetPlayerMatches(steamId);
+        if (playerMatches == null || playerMatches.Count == 0)
             throw new Exception("No matches in list");
         
-        List<PlayerHero> playerHeroes = new();
+        List<PlayerHero> playerHeroes = [];
         
         playerHeroes.AddRange(playerMatches.Select(m => m.HeroId).Distinct().Select(h => new PlayerHero
         {
@@ -35,22 +30,22 @@ public class HeroService : IHeroService
             hero.Name = dotaHeroes.Find(h => h.Id == int.Parse(hero.HeroId))!.LocalizedName;
             hero.GamesPlayed = playerMatches.Count(m => m.HeroId == int.Parse(hero.HeroId));
             hero.WinCount = playerMatches.Count(m => m.HeroId == int.Parse(hero.HeroId) && m.MatchWon);
-            
+            hero.Avatar = heroesConstants[hero.HeroId].Icon;
         }
 
         return playerHeroes.AsQueryable();
 
     }
 
-    public async Task<List<Match>> GetPlayerMatches(long steamId)
+    private async Task<Dictionary<string, HeroeConstants>> GetHeroesConstants()
     {
-        var result = await _openDotaApiClient.GetPlayerMatches(steamId);
-        return JsonSerializer.Deserialize<List<Match>>(result);
+        var result = await openDotaApiClient.GetHeroesConstants();
+        return JsonSerializer.Deserialize<Dictionary<string, HeroeConstants>>(result);
     }
 
     public async Task<List<Hero>> GetAllDotaHeroes()
     {
-        var result = await _openDotaApiClient.GetAllDotaHeroes();
+        var result = await openDotaApiClient.GetAllDotaHeroes();
         return JsonSerializer.Deserialize<List<Hero>>(result);
     }
 }

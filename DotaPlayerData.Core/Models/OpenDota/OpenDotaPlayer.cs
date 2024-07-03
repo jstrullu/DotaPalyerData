@@ -1,15 +1,11 @@
 ﻿using System.Text.Json.Serialization;
-using Microsoft.Maui.Controls.Internals;
 
-namespace DotaPlayerData.Core;
+namespace DotaPlayerData.Core.Models.OpenDota;
 
-public class Player
+public class OpenDotaPlayer
 {
     [JsonPropertyName("profile")]
     public Profile Profile { get; set; }
-
-    [JsonPropertyName("mmr_estimate")]
-    public Mmr MmrEstimate { get; set; }
 
     [JsonPropertyName("rank_tier")]
     public int? RankTier { get; set; }

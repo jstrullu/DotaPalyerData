@@ -1,26 +1,35 @@
-﻿using Flurl;
+﻿using DotaPlayerData.API.Configuration;
+using Flurl;
 using Flurl.Http;
 
 namespace DotaPlayerData.API.Impl;
 
-public class StratzApi : IStratzApi
+public class StratzApi(StratzConfiguration stratzConfiguration) : IStratzApi
 {
-    private const string ApiKey =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTdWJqZWN0IjoiMGVjNTFiY2UtOWJjOS00NDM0LTlhYTMtNTFmMGNhYjIzYWJjIiwiU3RlYW1JZCI6IjI1Mjc3MTM1IiwibmJmIjoxNjkzNzU4NzUxLCJleHAiOjE3MjUyOTQ3NTEsImlhdCI6MTY5Mzc1ODc1MSwiaXNzIjoiaHR0cHM6Ly9hcGkuc3RyYXR6LmNvbSJ9.J-MuI-ulbSyzgGOV35N28JWm0asZSDYgzPc2GhGrlY8";
-
-    private readonly string _baseUri;
-    public StratzApi()
-    {
-        _baseUri = "https://api.stratz.com//api/v1/";
-    }
-    
     public async Task<string> GetPlayerInfos(long steamId)
     {
         try
         {
-            string playerEndpoint = _baseUri.AppendPathSegment($"player/{steamId}");
+            string playerEndpoint = stratzConfiguration.BaseUrl.AppendPathSegment($"player/{steamId}");
 
-            var response = await playerEndpoint.GetAsync().ConfigureAwait(false);
+            var response = await playerEndpoint.WithOAuthBearerToken(stratzConfiguration.ApiKey).GetAsync().ConfigureAwait(false);
+            return await response.GetStringAsync().ConfigureAwait(false);
+        }
+        catch (FlurlHttpException e)
+        {
+            throw;
+        }
+    }
+
+    public async Task<string> GetTeamInfos(long teamId)
+    {
+        try
+        {
+            string teamEndPoint = stratzConfiguration.BaseUrl.AppendPathSegment($"team/{teamId}");
+
+            var response = await teamEndPoint.WithOAuthBearerToken(stratzConfiguration.ApiKey).GetAsync()
+                .ConfigureAwait(false);
+
             return await response.GetStringAsync().ConfigureAwait(false);
         }
         catch (FlurlHttpException e)

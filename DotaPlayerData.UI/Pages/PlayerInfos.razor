@@ -1,4 +1,5 @@
-﻿<div>
+﻿@using DotaPlayerData.Core.Models
+<div>
     <MudCard>
         <MudCardContent>
             <MudGrid Justify="Justify.FlexStart" Spacing="5">
@@ -16,7 +17,16 @@
                 <MudItem>
                     <MudImage Src="@_flagUrl"/>
                     <MudText>@PlayerData.Profile.Name</MudText>
-                    <MudText>@PlayerData.MmrEstimate.Estimate Estimated MMR</MudText>
+                    <MudText>Match count : @PlayerData.MatchCount</MudText>
+                    <MudText>Win count : @PlayerData.WinCount</MudText>
+                    <MudText>Loss count : @PlayerData.LossCount</MudText>
+                </MudItem>
+                <MudItem>
+                    <MudText>Also known as :</MudText>
+                    @foreach (var name in PlayerData.Profile.AllNames)
+                    {
+                        <MudText>- @name</MudText>
+                    }
                 </MudItem>
             </MudGrid>
         </MudCardContent>
@@ -32,7 +42,7 @@
 
     protected override void OnParametersSet()
     {
-        _flagUrl = "https://flagsapi.com/" + PlayerData.Profile.CountryCode + "/shiny/32.png";
+        _flagUrl = "https://flagsapi.com/" + PlayerData.CountryCode + "/shiny/32.png";
         _rankUrl = "https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_" + (int)PlayerData.MainRank + ".png";
         _starsUrl = "https://www.opendota.com/assets/images/dota2/rank_icons/rank_star_" + PlayerData.RankStars + ".png";
         base.OnParametersSet();
