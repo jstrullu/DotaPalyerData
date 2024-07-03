@@ -4,7 +4,7 @@
 <div>
     @if (SearchPlayerResults != null)
     {
-        <MudList Clickable="true" @bind-SelectedItem="_selectedItem" Color="Color.Success">
+        <MudList T="SearchPlayerResult" Clickable="true" @bind-SelectedItem="_selectedItem" Color="Color.Success">
             @foreach (var player in SearchPlayerResults)
             {
                 <MudListItem Value="player.AccountId" Class="player-list-item" OnClick="() => LoadPlayerData(player.AccountId)">
@@ -25,7 +25,7 @@
     [Parameter]
     public Action<int> OnPlayerSelected { get; set; }
     
-    MudListItem _selectedItem;
+    MudListItem<SearchPlayerResult> _selectedItem;
 
     private void LoadPlayerData(int playerAccountId)
     {
