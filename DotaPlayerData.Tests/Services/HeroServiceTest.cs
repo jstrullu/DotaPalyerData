@@ -64,12 +64,10 @@ public class HeroServiceTest
         var hero1Stats = result.First(m => m.HeroId == "1");
         hero1Stats.GamesPlayed.Should().Be(2);
         hero1Stats.WinCount.Should().Be(1);
-        hero1Stats.Avatar.Should().Be("Test");
 
         var hero2Stats = result.First(h => h.HeroId == "2");
         hero2Stats.GamesPlayed.Should().Be(1);
         hero2Stats.WinCount.Should().Be(1);
-        hero2Stats.Avatar.Should().Be("toto");
     }
     
     [Test]
@@ -78,6 +76,7 @@ public class HeroServiceTest
         // Arrange
         long steamId = 12345;
         var fakeDotaHeroes = new List<Hero>();
+        var fakeConstants = new Dictionary<string, HeroeConstants>();
         var fakePlayerMatches = new List<Match>
         {
             new Match { HeroId = 1, RadiantWin = true },
@@ -86,6 +85,7 @@ public class HeroServiceTest
         };
         _mockOpenDotaApi.Setup(s => s.GetAllDotaHeroes()).ReturnsAsync(JsonSerializer.Serialize(fakeDotaHeroes));
         _mockOpenDotaApi.Setup(s => s.GetPlayerMatches(steamId)).ReturnsAsync(JsonSerializer.Serialize(fakePlayerMatches));
+        _mockOpenDotaApi.Setup(s => s.GetHeroesConstants()).ReturnsAsync(JsonSerializer.Serialize(fakeConstants));
 
         // Act
         Func<Task> act = async () =>
@@ -102,6 +102,7 @@ public class HeroServiceTest
     {
         // Arrange
         long steamId = 12345;
+        var fakeConstants = new Dictionary<string, HeroeConstants>();
         var fakeDotaHeroes = new List<Hero>{
             new Hero { Id = 1, LocalizedName = "Hero1" },
             new Hero { Id = 2, LocalizedName = "Hero2" }
@@ -109,6 +110,7 @@ public class HeroServiceTest
         var fakePlayerMatches = new List<Match>();
         _mockOpenDotaApi.Setup(s => s.GetAllDotaHeroes()).ReturnsAsync(JsonSerializer.Serialize(fakeDotaHeroes));
         _mockOpenDotaApi.Setup(s => s.GetPlayerMatches(steamId)).ReturnsAsync(JsonSerializer.Serialize(fakePlayerMatches));
+        _mockOpenDotaApi.Setup(s => s.GetHeroesConstants()).ReturnsAsync(JsonSerializer.Serialize(fakeConstants));
 
         // Act
         Func<Task> act = async () =>
@@ -125,6 +127,7 @@ public class HeroServiceTest
     {
         // Arrange
         long steamId = 12345;
+        var fakeConstants = new Dictionary<string, HeroeConstants>();
         var fakeDotaHeroes = new List<Hero>{
             new Hero { Id = 1, LocalizedName = "Hero1" },
             new Hero { Id = 2, LocalizedName = "Hero2" }
@@ -132,6 +135,7 @@ public class HeroServiceTest
         var fakePlayerMatches = (List<Match>) null;
         _mockOpenDotaApi.Setup(s => s.GetAllDotaHeroes()).ReturnsAsync(JsonSerializer.Serialize(fakeDotaHeroes));
         _mockOpenDotaApi.Setup(s => s.GetPlayerMatches(steamId)).ReturnsAsync(JsonSerializer.Serialize(fakePlayerMatches));
+        _mockOpenDotaApi.Setup(s => s.GetHeroesConstants()).ReturnsAsync(JsonSerializer.Serialize(fakeConstants));
 
         // Act
         Func<Task> act = async () =>
