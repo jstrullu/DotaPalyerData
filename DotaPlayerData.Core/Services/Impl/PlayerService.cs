@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Runtime.CompilerServices;
+using System.Text.Json;
 using DotaPlayerData.API;
 using DotaPlayerData.Core.Models;
 using DotaPlayerData.Core.Models.OpenDota;
@@ -7,6 +8,7 @@ using Profile = DotaPlayerData.Core.Models.Profile;
 using Team = DotaPlayerData.Core.Models.Team;
 using Flurl.Http;
 
+[assembly:InternalsVisibleTo("DotaPlayerData.Tests")]
 namespace DotaPlayerData.Core.Services.Impl;
 
 public class PlayerService(IOpenDotaApiClient openDotaApiClient, IStratzApi stratzApi, ITeamService teamService) : IPlayerService
