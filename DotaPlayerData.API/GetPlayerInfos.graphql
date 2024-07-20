@@ -1,0 +1,178 @@
+query GetPlayerInfos($steamId: Long!){
+    player(steamAccountId: $steamId) {
+        steamAccountId
+        identity {
+            captainJackIdentityId
+            name
+            twitter
+            facebook
+            twitch
+            youTube
+            isAdmin
+            steamAccountId
+        }
+        steamAccount {
+            id
+            profileUri
+            realName
+            timeCreated
+            countryCode
+            stateCode
+            cityId
+            communityVisibleState
+            name
+            lastLogOff
+            avatar
+            primaryClanId
+            isDotaPlusSubscriber
+            dotaAccountLevel
+            rankShift
+            isAnonymous
+            isStratzPublic
+            seasonRank
+            seasonLeaderboardRank
+            seasonLeaderboardDivisionId
+            proSteamAccount {
+                id
+                name
+                realName
+                fantasyRole
+                teamId
+                sponsor
+                isLocked
+                isPro
+                totalEarnings
+                birthday
+                romanizedRealName
+                roles
+                aliases
+                statuses
+                twitterLink
+                twitchLink
+                instagramLink
+                vkLink
+                youTubeLink
+                facebookLink
+                weiboLink
+                signatureHeroes
+                position
+                countries
+                team {
+                    id
+                    name
+                    tag
+                    dateCreated
+                    isPro
+                    isLocked
+                    countryCode
+                    url
+                    logo
+                    baseLogo
+                    bannerLogo
+                    winCount
+                    lossCount
+                    lastMatchDateTime
+                    countryName
+                    coachSteamAccountId
+                    members {
+                        steamAccountId
+                        teamId
+                        firstMatchId
+                        firstMatchDateTime
+                        lastMatchId
+                        lastMatchDateTime
+                    }
+                }
+            }
+            activity {
+                activity
+            }
+            smurfFlag
+            lastMatchDateTime
+            lastMatchRegionId
+            battlepass {
+                steamAccountId
+                eventId
+                level
+            }
+            guild {
+                guildId
+                joinDateTime
+                guild {
+                    id
+                    motd
+                    name
+                    tag
+                    createdDateTime
+                    language
+                    flags
+                    logo
+                    region
+                    description
+                    requiredRank
+                    primaryColor
+                    secondaryColor
+                    pattern
+                    points
+                    pastWeeklyRank
+                    pastWeeklyPercentile
+                    currentPercentile
+                    lastUpdateDateTime
+                    memberCount
+                    totalBattlePassLevels
+                    rank
+                }
+                matchCount
+                winCount
+                imp
+            }
+            isCaster
+        }
+        matchCount
+        winCount
+        imp
+        firstMatchDate
+        lastMatchDate
+        lastMatchRegionId
+        ranks {
+            seasonRankId
+            asOfDateTime
+            isCore
+            rank
+        }
+        leaderboardRanks {
+            steamAccountId
+            seasonRankId
+            asOfDateTime
+            seasonLeaderBoardDivisionId
+            rank
+        }
+        badges {
+            badgeId
+            slot
+            createdDateTime
+        }
+        names {
+            name
+            lastSeenDateTime
+        }
+        behaviorScore
+        activity {
+            activity
+        }
+        isFollowed
+        simpleSummary {
+            lastUpdateDateTime
+            matchCount
+            coreCount
+            supportCount
+            imp
+            heroes {
+                heroId
+                winCount
+                lossCount
+            }
+            activity
+        }
+    }
+}

@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text.Json;
 using DotaPlayerData.API;
+using DotaPlayerData.API.GraphQL;
 using DotaPlayerData.Core.Models;
 using DotaPlayerData.Core.Models.OpenDota;
 using DotaPlayerData.Core.Models.Stratz;
@@ -37,14 +38,14 @@ public class PlayerService(IOpenDotaApiClient openDotaApiClient, IStratzApi stra
         
         var openDotaPlayer = JsonSerializer.Deserialize<OpenDotaPlayer>(result) ?? throw new InvalidOperationException();
 
-        result = await stratzApi.GetPlayerInfos(steamId).ConfigureAwait(false);
+        var playerData = await stratzApi.GetPlayerInfos(steamId).ConfigureAwait(false);
 
-        var stratzPlayer = JsonSerializer.Deserialize<StratzPlayer>(result);
         
-        return GetMergedPlayerInfos(stratzPlayer, openDotaPlayer);
+        
+        return GetMergedPlayerInfos(playerData.Player, openDotaPlayer);
     }
 
-    internal static Player GetMergedPlayerInfos(StratzPlayer stratzPlayer, OpenDotaPlayer openDotaPlayer)
+    internal static Player GetMergedPlayerInfos(IGetPlayerInfos_Player stratzPlayer, OpenDotaPlayer openDotaPlayer)
     {
         return new Player
         {
@@ -52,17 +53,17 @@ public class PlayerService(IOpenDotaApiClient openDotaApiClient, IStratzApi stra
             {
                 Avatar = openDotaPlayer.Profile.Avatar,
                 Name = openDotaPlayer.Profile.Name,
-                AllNames = stratzPlayer.Names.Select(n => n.Naming).ToList()
+                AllNames = stratzPlayer.Names!.Select(n => n.Name).ToList()
             },
             CountryCode = openDotaPlayer.Profile.CountryCode,
             MainRank = openDotaPlayer.MainRank,
             RankStars = openDotaPlayer.RankStars,
-            WinCount = stratzPlayer.WinCount,
-            MatchCount = stratzPlayer.MatchCount,
+            WinCount = stratzPlayer.WinCount ?? 0,
+            MatchCount = stratzPlayer.MatchCount ?? 0,
             Team = new Team
             {
-                Name = stratzPlayer.Team.Team.Name,
-                Logo = stratzPlayer.Team.Team.Logo
+                Name = stratzPlayer.SteamAccount.Guild.Guild.Name,
+                Logo = stratzPlayer.SteamAccount.Guild.Guild.Logo
             }
         };
     }

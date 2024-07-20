@@ -1,0 +1,22 @@
+{
+  "schema": "schema.graphql",
+  "documents": "**/*.graphql",
+  "extensions": {
+    "strawberryShake": {
+      "name": "StratzClient",
+      "url": "https://api.stratz.com/graphql?key=jE1M9jZk28iOXJs2LBfrN3gxWeqfgR2B",
+      "namespace": "DotaPlayerData.API.GraphQL",
+      "dependencyInjection": true,
+      "records": {
+        "inputs": true,
+        "entities": true
+      },
+      "transportProfiles": [
+        {
+          "default": "Http",
+          "subscription": "WebSocket"
+        }
+      ]
+    }
+  }
+}

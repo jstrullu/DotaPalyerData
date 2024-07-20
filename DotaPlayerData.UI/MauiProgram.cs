@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using DotaPlayerData.API;
+﻿using DotaPlayerData.API;
 using DotaPlayerData.API.Configuration;
 using DotaPlayerData.API.Impl;
 using DotaPlayerData.Core.Services;
@@ -17,12 +16,15 @@ public static class MauiProgram
     {
         var builder = MauiApp.CreateBuilder();
         builder.AddAppSettings();
+        
         builder
             .UseMauiApp<App>()
             .ConfigureFonts(fonts => { fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular"); });
         builder.AddAppSettings();
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddMudServices();
+         builder.Services.AddStratzClient()
+              .ConfigureHttpClient(client => client.BaseAddress = new Uri("https://api.stratz.com/graphql?key=jE1M9jZk28iOXJs2LBfrN3gxWeqfgR2B"));
 
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();
