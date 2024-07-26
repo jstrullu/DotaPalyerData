@@ -30,6 +30,35 @@ jobs:
       - name: Restore
         run: dotnet restore /p:PublishReadyToRun=true
         
+      - uses: 8BitJonny/gh-get-current-pr@2.2.0
+        id: PR
+        with:
+          sha: ${{ github.event.pull_request.head.sha }}
+
+      - uses: bhowell2/github-substring-action@1.0.1
+        id: version
+        with:
+          value: ${{ steps.PR.outputs.pr_title }}
+          index_of_str: "#VERSION"
+          fail_if_not_found: false
+          default_return_value: 'PATCH'
+
+      - id: string
+        uses: ASzc/change-string-case-action@v5
+        with:
+          string: ${{ steps.version.outputs.substring }}
+        name: Get Version lowercase
+
+      - id: bump
+        name: Bump versions
+        uses: mediatech15/dotnet-bump-version-action@v1.0.2
+        with:
+          version_files: "DotaPlayerData.UI/DotaPlayerData.UI.csproj"
+          bump: ${{ steps.string.outputs.lowercase }}
+          read_only: false
+          do_commit: false
+          do_tag: false
+        
       - name: Build
         run: dotnet build DotaPlayerData.UI/DotaPlayerData.UI.csproj --no-restore -c Release -f:net8.0-windows10.0.19041.0
         
@@ -45,3 +74,17 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2.4.2
         with:
           filePath: coveragereport\SummaryGithub.md
+
+      - name: Modify version in iss file
+        uses: jaywcjlove/github-action-modify-file-content@main
+        with:
+          path: DotaPlayerData Setup.iss
+          body: ${{ steps.bump.outputs.version }}
+      
+      - name: Commit tag et bump
+        if: github.event_name != 'pull_request'
+        run: |
+          git config --global user.name 'Julien Strullu'
+          git config --global user.email 'julien.strullu@gmail.com'
+          git commit -am "[no ci] committing tag and version bump"
+          git push
