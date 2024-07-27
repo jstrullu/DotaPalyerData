@@ -84,7 +84,7 @@ jobs:
           filePath: coveragereport\SummaryGithub.md
 
       - name: Modify version number
-        uses: mingjun97/file-regex-replace
+        uses: mingjun97/file-regex-replace@v1
         with:
           regex: '#define MyAppVersion "([0-9\.]*)"'
           replacement: '#define MyAppVersion "${{ steps.bump.outputs.version }}"'
