@@ -83,11 +83,12 @@ jobs:
         with:
           filePath: coveragereport\SummaryGithub.md
 
-      - name: Modify version in iss file
-        uses: jaywcjlove/github-action-modify-file-content@main
+      - name: Modify version number
+        uses: mingjun97/file-regex-replace
         with:
-          path: DotaPlayerData Setup.iss
-          body: ${{ steps.bump.outputs.version }}
+          regex: '#define MyAppVersion "([0-9\.]*)"'
+          replacement: '#define MyAppVersion "${{ steps.bump.outputs.version }}"'
+          include: 'DotaPlayerData.UI/DotaPlayerData Setup.iss'
       
       - name: Commit tag et bump
         if: github.event_name != 'pull_request'
