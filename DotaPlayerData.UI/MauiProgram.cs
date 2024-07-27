@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using DotaPlayerData.API;
+﻿using DotaPlayerData.API;
 using DotaPlayerData.API.Configuration;
 using DotaPlayerData.API.Impl;
 using DotaPlayerData.Core.Services;
