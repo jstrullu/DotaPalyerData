@@ -97,7 +97,7 @@ jobs:
           git config --global user.email 'julien.strullu@gmail.com'
           git commit -am "[no ci] committing tag and version bump"
           git tag -fa "${GITHUB_REF#refs/*/}-${{ steps.bump.outputs.version }}" -m "${{ steps.bump.outputs.version }}"
-          git push
+          git push -f
           
       - name: Compile .ISS to .EXE Installer
         if: github.event_name != 'pull_request' && steps.release.outputs.substring == 'true'
