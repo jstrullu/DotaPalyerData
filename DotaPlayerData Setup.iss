@@ -1,5 +1,5 @@
 #define MyAppName "Dota Player Data"
-#define MyAppVersion "<!--GAMFC-->1.0.0<!--GAMFC-END-->"
+#define MyAppVersion "1.0.0"
 #define MyAppPublisher ""
 #define MyAppURL ""
 #define MyAppExeName "DotaPlayerData.exe"
