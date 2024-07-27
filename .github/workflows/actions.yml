@@ -42,7 +42,15 @@ jobs:
           index_of_str: "#VERSION"
           fail_if_not_found: false
           default_return_value: 'PATCH'
-
+      
+      - uses: bhowell2/github-substring-action@1.0.1
+        id: release
+        with:
+          value: ${{ steps.PR.outputs.pr_title }}
+          index_of_str: "#RELEASE"
+          fail_if_not_found: false
+          default_return_value: 'false'
+      
       - id: string
         uses: ASzc/change-string-case-action@v5
         with:
@@ -87,4 +95,18 @@ jobs:
           git config --global user.name 'Julien Strullu'
           git config --global user.email 'julien.strullu@gmail.com'
           git commit -am "[no ci] committing tag and version bump"
+          git tag -fa "${GITHUB_REF#refs/*/}-${{ steps.bump.outputs.version }}" -m "${{ steps.bump.outputs.version }}"
           git push
+          
+      - name: Compile .ISS to .EXE Installer
+        if: github.event_name != 'pull_request' && steps.release.outputs.substring == 'true'
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+        with:
+          path: DotaPlayerData.UI/DotaPlayerData Setup.iss
+      
+      - uses: ncipollo/release-action@v1
+        if: github.event_name != 'pull_request' && steps.release.outputs.substring == 'true'
+        with:
+          artifacts: "DotaPlayerData.UI/DotaPlayerData.exe"
+          name: "${{ steps.bump.outputs.version }}"
+          tag: "${{ steps.bump.outputs.version }}"

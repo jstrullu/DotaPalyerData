@@ -1,8 +1,8 @@
 #define MyAppName "Dota Player Data"
 #define MyAppVersion "<!--GAMFC-->1.0.0<!--GAMFC-END-->"
 #define MyAppPublisher ""
-#define MyAppURL "https://www.example.com/"
-#define MyAppExeName "DotaPlayerData.UI.exe"
+#define MyAppURL ""
+#define MyAppExeName "DotaPlayerData.exe"
 #define MyAppAssocName "DotaPlayer Data File"
 #define MyAppAssocExt ".dpd"
 #define MyAppAssocKey StringChange(MyAppAssocName, " ", "") + MyAppAssocExt
