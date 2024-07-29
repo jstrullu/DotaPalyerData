@@ -21,8 +21,9 @@ jobs:
         run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v3
-        fetch-depth: 0
-        token: ${{ env.GH_TOKEN }}
+        with:
+          fetch-depth: 0
+          token: ${{ env.GH_TOKEN }}
         
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
